@@ -6,13 +6,16 @@ from pygame.math import Vector2
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        self.image = pygame.Surface((TILE_SIZE - 6, TILE_SIZE - 6))
-        self.image.fill(RED)
+
+        # https://opengameart.org/content/scientist-0 (Creator: Min)
+        self.enemy_image = pygame.image.load("Enemy_Skeleton.png")# loads enemy image
+        self.image = pygame.transform.scale(self.enemy_image, (TILE_SIZE - 8, TILE_SIZE - 8)) # Makes it smaller to fit in tiles!
         self.rect = self.image.get_rect()
         self.rect.topleft = (x * TILE_SIZE + 3, y * TILE_SIZE + 3)
 
         self.speed = 1
-
+    
+    #Gets the position and direction the enemy has to go to reach the player
     def update(self, player, walls):
         enemy_pos = Vector2(self.rect.center)
         player_pos = Vector2(player.rect.center)
